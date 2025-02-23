@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbaghdas <tbaghdas@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/23 16:59:53 by tbaghdas          #+#    #+#             */
+/*   Updated: 2025/02/23 18:10:55 by tbaghdas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
@@ -51,7 +62,7 @@ int	ft_printf(const char *str, ...)
 	return (count);
 }
 
-
+/*
 #include <stdio.h>
 #include <stdarg.h>
 
@@ -114,4 +125,4 @@ int main() {
     custom_ret = ft_printf("Custom printf: %c %s %p %d %u %x %X %%\n", c, s, p, d, u, u, u);
     printf("Return values - Original: %d, Custom: %d\n\n", original_ret, custom_ret);
     return 0;
-}
+}*/

@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_alpha.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tbaghdas <tbaghdas@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/23 16:59:40 by tbaghdas          #+#    #+#             */
+/*   Updated: 2025/02/23 18:22:02 by tbaghdas         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "ft_printf.h"
 
@@ -17,11 +27,11 @@ int	ft_printchar_fd(char c, int fd, int *count)
 
 void	ft_printstr_fd(char *s, int fd, int *count)
 {
-	if (!s)
+	if (s == NULL)
 	{
-		*count = -1;
+		ft_printstr_fd("(null)", fd, count);
 		return ;
 	}
-	while (*s)
+	while (*s != '\0')
 		ft_printchar_fd(*s++, fd, count);
 }
