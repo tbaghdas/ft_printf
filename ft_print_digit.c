@@ -6,7 +6,7 @@
 /*   By: tbaghdas <tbaghdas@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/23 16:59:48 by tbaghdas          #+#    #+#             */
-/*   Updated: 2025/02/23 18:00:33 by tbaghdas         ###   ########.fr       */
+/*   Updated: 2025/03/01 17:59:44 by tbaghdas         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_printhex_fd(unsigned int n, int fd, int *count, int shift)
 	{
 		div *= 16;
 	}
-	while (div > 2 && nb > 9)
+	while (div > 2 && nb > 9 && nb >= 16)
 	{
 		ft_printchar_fd(dec2char_hex((nb / div) % 16, shift), fd, count);
 		div /= 16;
@@ -47,24 +47,20 @@ void	ft_printptr_fd(void *ptr, int fd, int *count)
 {
 	unsigned int	high;
 	unsigned int	low;
-	unsigned int	check;
 	int				i;
 
 	high = (unsigned int)(((unsigned long)ptr) >> 32);
 	low = (unsigned int)(((unsigned long)ptr) & 0xFFFFFFFF);
 	ft_printstr_fd("0x", fd, count);
 	if (high)
-	{
-		i = 0;
-		check = !(high^0x00000000);
-		if ((check & (0x80000000 >> i)) != 0 && i++ < 32)
-			ft_printchar_fd('0', fd, count);
 		ft_printhex_fd(high, fd, count, 32);
-	}
-		i = 0;
-		check = !(low^0x00000000);
-		if ((check & (0x80000000 >> i)) != 0 && i++ < 32)
+	i = 0;
+	while (high != 0 && !(low & (0x80000000 >> i)) && i < 32)
+	{
+		if (i + 1 < 32 && (i + 1) % 4 == 0 && i != 0)
 			ft_printchar_fd('0', fd, count);
+		i++;
+	}
 	ft_printhex_fd(low, fd, count, 32);
 }
 
@@ -94,6 +90,7 @@ void	ft_printnbr_fd(int n, int fd, int *count)
 
 void	ft_printunbr_fd(unsigned int nb, int fd, int *count)
 {
-	ft_printnbr_fd(nb / 10, fd, count);
+	if (nb >= 10)
+		ft_printnbr_fd(nb / 10, fd, count);
 	ft_printnbr_fd(nb % 10, fd, count);
 }
